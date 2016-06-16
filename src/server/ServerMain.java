@@ -12,16 +12,17 @@ public class ServerMain {
 		EventLoopGroup acceptor = new NioEventLoopGroup();
 		EventLoopGroup worker = new NioEventLoopGroup();
 		ServerBootstrap bootstrap = new ServerBootstrap();
-		bootstrap.option(ChannelOption.SO_BACKLOG,1024);
-		bootstrap.group(acceptor,worker);
+		bootstrap.option(ChannelOption.SO_BACKLOG, 1024);
+		bootstrap.group(acceptor, worker);
 		bootstrap.channel(NioServerSocketChannel.class);
 		bootstrap.childHandler(new ServerIniterHandler());
 		try {
 			Channel channel = bootstrap.bind(8888).sync().channel();
+			System.out.println("server strart running");
 			channel.closeFuture().sync();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			acceptor.shutdownGracefully();
 			worker.shutdownGracefully();
 		}
