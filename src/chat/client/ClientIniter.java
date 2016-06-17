@@ -1,4 +1,4 @@
-package Client;
+package chat.client;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

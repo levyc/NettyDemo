@@ -1,4 +1,4 @@
-package server;
+package chat.server;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -62,7 +62,8 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<String> {
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
 			throws Exception {
-		System.out.println("some client exit");
+		System.out.println(
+				"[" + ctx.channel().remoteAddress() + "]" + "exit the room");
 		ctx.close().sync();
 	}
 

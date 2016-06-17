@@ -1,4 +1,4 @@
-package Client;
+package chat.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,13 +13,12 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 public class ClientMain {
 	private String host;
 	private int port;
+	private boolean stop = false;
 
 	public ClientMain(String host, int port) {
 		this.host = host;
 		this.port = port;
 	}
-
-	private boolean stop = false;
 
 	public static void main(String[] args) throws IOException {
 		new ClientMain(args[0], Integer.parseInt(args[1])).run();
@@ -34,13 +33,13 @@ public class ClientMain {
 
 		try {
 			Channel channel = bootstrap.connect(host, port).sync().channel();
-			while (!stop) {
+			while (true) {
 				BufferedReader reader = new BufferedReader(
 						new InputStreamReader(System.in));
 				String input = reader.readLine();
 				if (input != null) {
 					if ("quit".equals(input)) {
-						System.exit(0);
+						System.exit(1);
 					}
 					channel.writeAndFlush(input);
 				}
@@ -50,4 +49,13 @@ public class ClientMain {
 			System.exit(1);
 		}
 	}
+
+	public boolean isStop() {
+		return stop;
+	}
+
+	public void setStop(boolean stop) {
+		this.stop = stop;
+	}
+
 }
