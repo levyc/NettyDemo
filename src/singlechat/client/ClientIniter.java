@@ -13,8 +13,9 @@ public class ClientIniter extends ChannelInitializer<SocketChannel> {
 	protected void initChannel(SocketChannel arg0) throws Exception {
 		ChannelPipeline pipeline = arg0.pipeline();
 
-		pipeline.addLast(new ObjectDecoder(1024 * 1024, ClassResolvers
-				.weakCachingConcurrentResolver(getClass().getClassLoader())));
+		pipeline.addLast(new ObjectDecoder(1024 * 1024,
+				ClassResolvers.weakCachingConcurrentResolver(
+						this.getClass().getClassLoader())));
 		pipeline.addLast(new ObjectEncoder());
 		pipeline.addLast(new ClientHandler());
 	}

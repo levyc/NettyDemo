@@ -1,17 +1,22 @@
 package singlechat.server.user.dao;
 
-public class User {
-	private int id;
+import java.io.Serializable;
+
+public class User implements Serializable {
+	/**  */
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String password;
 	private String description;
 
-	public int getId() {
-		return id;
+	public User() {
+
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public User(String name, String password, String description) {
+		this.description = description;
+		this.password = password;
+		this.name = name;
 	}
 
 	public String getName() {
